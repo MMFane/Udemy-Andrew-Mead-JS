@@ -3,14 +3,19 @@
 <head>
     <title>To Do App</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link type="text/css" href="./main.css" rel="stylesheet"></link>
 </head>
 <body>
     <div id="header">
         <h1>To Do</h1>
     </div>
-    <div id="toDo"></div>
+    <input id="input-filter" type="text" placeholder="Filter To Dos">
+    <div id="to-do"></div>
     <div id="done"></div>
-    <button>Add To Do</button>
+    <input id="input-new" type="text" placeholder="Type New To Do">
+    <button id="btn-add">Add To Do</button>
+    <button id="btn-remove-to-do">Remove All To Do</button>
+    <button id="btn-remove-done">Remove All Done</button>
     <script src="./main.js"></script>
 </body>
 </html>

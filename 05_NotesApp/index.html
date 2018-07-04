@@ -6,12 +6,15 @@
     <body>
         <h1>Notes App</h1>
         <h2>Record your thoughts</h2>
-        <div id="notes">
-            <p>Yo yo yo</p>
-            <p>P2</p>
-            <p>P3</p>
-        </div>
-        <button>Add Note</button>
+        <input id="input-filter" type="text" placeholder="Filter Notes">
+        <div id="notes"></div>
+        <button id="btn-add">Add Note</button>
+        <button id="btn-remove-all">Remove All</button>
+        <form id="AddNoteForm">
+            <input type="text" placeholder="Note Title" name="noteTitle">
+            <input type="text" placeholder="Note Text" name="noteBody">
+            <button type="submit">Add Note</button>
+        </form>
         <script src="./notes-app.js"></script>
     </body>
 </html>

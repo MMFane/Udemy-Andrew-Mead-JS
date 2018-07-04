@@ -9,15 +9,47 @@ const notes = [{
     body: 'Get more plants'
 }]
 
-//Add a new element
-const newParagraph = document.createElement("p")
-newParagraph.textContent = "I'm a new paragraph"
-document.querySelector("#notes").appendChild(newParagraph)
-
-
-const addElement = function (e) {
-    console.log("adding element")
-    e.target.textContent = "I was clicked!"
+const filters = {
+    searchText: ""
 }
 
-document.querySelector("button").addEventListener("click", addElement)
+const addNote = function (e, note) {
+    const newNote = document.createElement("p")
+    newNote.textContent = "New Note Placeholder Text"
+    newNote.classList.add("note")
+    document.querySelector("#notes").appendChild(newNote)
+}
+
+const removeAllNotes = function (e) {
+    document.querySelector("#notes").innerHTML = ""
+}
+
+const renderNotes = function (notes, filters) {
+    removeAllNotes()
+    const filteredNotes = notes.filter(function (note) {
+        return note.title.toLowerCase().includes(filters.searchText.toLowerCase())
+    })
+    filteredNotes.forEach(function(note) {
+        const noteEl = document.createElement("p")
+        noteEl.textContent= note.title
+        noteEl.classList.add("note")
+        document.querySelector("#notes").appendChild(noteEl)
+    })
+}
+
+renderNotes(notes, filters)
+
+document.querySelector("#btn-add").addEventListener("click", addNote)
+document.querySelector("#btn-remove-all").addEventListener("click", removeAllNotes)
+document.querySelector("#input-filter").addEventListener("input", function (e) {
+    filters.searchText = e.target.value
+    renderNotes(notes, filters)
+})
+
+document.querySelector("#AddNoteForm").addEventListener("submit", function(e) {
+    e.preventDefault()
+    console.log(e.target.elements.noteTitle.value)
+    console.log(e.target.elements.noteBody.value)
+    e.target.elements.noteTitle.value = ""
+    e.target.elements.noteBody.value = ""
+})
