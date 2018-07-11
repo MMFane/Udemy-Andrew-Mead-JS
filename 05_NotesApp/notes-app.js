@@ -46,11 +46,6 @@ document.querySelector("#input-filter").addEventListener("input", function (e) {
     renderNotes(notes, filters)
 })
 
-document.querySelector("#AddNoteForm").addEventListener("submit", function(e) {
-    e.preventDefault()
-    console.log(e.target.elements.noteTitle.value)
-    console.log(e.target.elements.noteBody.value)
-    addNote(e, e.target)
-    e.target.elements.noteTitle.value = ""
-    e.target.elements.noteBody.value = ""
+document.querySelector("#for-fun").addEventListener("change", function (e) {
+    console.log(e.target.checked)
 })
