@@ -1,23 +1,23 @@
-const notes = [{
-    title: 'Note 1',
-    body: 'I would like to go to Spain'
-}, {
-    title: 'habits to work on',
-    body: 'Stop scratching face'
-}, {
-    title: 'House Plans',
-    body: 'Get more plants'
-}]
+let notes = []
 
 const filters = {
     searchText: ''
 }
 
+//check for existing saved data
+const notesJSON = localStorage.getItem('notes')
+
+if (notesJSON !== null) {
+    notes = JSON.parse(notesJSON)
+}
+
 const addNote = function (e, note) {
-    const newNote = document.createElement('p')
-    newNote.textContent = 'New Note Placeholder Text'
-    newNote.classList.add('note')
-    document.querySelector('#notes').appendChild(newNote)
+    notes.push({
+        title: '',
+        body: ''
+    })
+    localStorage.setItem('notes', JSON.stringify(notes))
+    renderNotes(notes, filters)
 }
 
 const removeAllNotes = function (e) {
@@ -29,9 +29,13 @@ const renderNotes = function (notes, filters) {
     const filteredNotes = notes.filter(function (note) {
         return note.title.toLowerCase().includes(filters.searchText.toLowerCase())
     })
-    filteredNotes.forEach(function(note) {
+    filteredNotes.forEach(function (note) {
         const noteEl = document.createElement('p')
-        noteEl.textContent= note.title
+        if (note.title.length > 0) {
+            noteEl.textContent = note.title
+        } else {
+            noteEl.textContent = 'Unnamed Note'
+        }
         noteEl.classList.add('note')
         document.querySelector('#notes').appendChild(noteEl)
     })
