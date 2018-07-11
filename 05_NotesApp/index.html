@@ -7,11 +7,14 @@
         <h1>Notes App</h1>
         <h2>Record your thoughts</h2>
         <input id="input-filter" type="text" placeholder="Filter Notes">
+        <select id="filter-by">
+            <option value="byEdited">Sort by last edited</option>
+            <option value="byCreated">Sort by recently created</option>
+            <option value="byTitle">Sort by title, alphabetically</option>
+        </select>
         <div id="notes"></div>
         <button id="btn-add">Add Note</button>
         <button id="btn-remove-all">Remove All</button>
-        <label for="for-fun">Check Me</label>
-        <input id="for-fun" type="checkbox">
         <script src="./notes-app.js"></script>
     </body>
 </html>

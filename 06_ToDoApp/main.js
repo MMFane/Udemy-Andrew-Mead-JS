@@ -1,4 +1,4 @@
-const toDoList = [
+let toDoList = [
     {
         text: 'Weight Lift',
         isComplete: false
@@ -20,18 +20,18 @@ const toDoList = [
         isComplete: false
     },
     {
+        text: 'Something Else',
+        isComplete: false
+    },
+    {
         text: 'Accept my pain',
         isComplete: true
     }
 ]
 
 const filters = {
-    query: ""
-}
-
-let newText = "Temp New Text"
-const setNewText = function (e) {
-    newText = e.target.value
+    query: "",
+    showDone: false
 }
 
 const addToDo = function (text) {
@@ -42,72 +42,99 @@ const addToDo = function (text) {
 }
 
 const removeAllToDos = function () {
-    document.querySelector("#to-do").innerHTML = ""
+    for (let i = toDoList.length - 1; i >= 0; i--) {
+        if (toDoList[i].isComplete === false) {
+            toDoList.splice(i, 1)
+        }
+    }
+    render(toDoList, filters)
 }
 
 const removeAllDone = function () {
-    document.querySelector("#done").innerHTML = ""
+    for (let i = toDoList.length - 1; i >= 0; i--) {
+        if (toDoList[i].isComplete === true) {
+            toDoList.splice(i, 1)
+        }
+    }
+    render(toDoList, filters)
 }
 
 const removeSummary = function () {
-    document.querySelector("#summary").innerHTML = ""
+    console.log("remove Summary")
 }
 
 const resetPage = function () {
-    removeAllToDos()
-    removeAllDone()
-    removeSummary()
+    document.querySelector("#to-do").innerHTML = ""
+    document.querySelector("#done").innerHTML = ""
+    document.querySelector("#summary").innerHTML = ""
 }
 
-const renderAll = function (toDoList, filters) {
+const render = function (toDoList, filters) {
     resetPage()
-
     const incomplete = toDoList.filter(function (toDo) {
         return !toDo.isComplete
+    })
+
+    const filteredToDos = incomplete.filter(function (toDo) {
+        return toDo.text.toLowerCase().includes(filters.query.toLowerCase())
     })
 
     const complete = toDoList.filter(function (toDo) {
         return toDo.isComplete
     })
 
-    const summary = document.querySelector("#summary")
-    summary.textContent = `You have ${incomplete.length} things left to do`
-    document.querySelector("#header").appendChild(summary)
-
-    const filteredToDos = incomplete.filter(function (toDo) {
-        return toDo.text.toLowerCase().includes(filters.query.toLowerCase())
-    })
-    
     const filteredDones = complete.filter(function (done) {
         return done.text.toLowerCase().includes(filters.query.toLowerCase())
     })
 
-    filteredToDos.forEach(function (toDo) {
-        const toDoElem = document.createElement("p")
-        toDoElem.textContent = toDo.text
-        document.querySelector("#to-do").appendChild(toDoElem)
-    })
+    const summary = document.querySelector("#summary")
+    summary.textContent = `You have ${incomplete.length} things left to do`
+    document.querySelector("#header").appendChild(summary)
 
-    filteredDones.forEach(function (done) {
-        const doneElem = document.createElement("p")
-        doneElem.textContent = done.text
-        doneElem.classList.add("done")
-        document.querySelector("#done").appendChild(doneElem)
-    })
+    if (filteredToDos.length > 0) {
+        filteredToDos.forEach(function (toDo) {
+            const toDoElem = document.createElement("p")
+            toDoElem.textContent = toDo.text
+            document.querySelector("#to-do").appendChild(toDoElem)
+        })
+    } else {
+        const toDoElem = document.createElement("p")
+        toDoElem.innerHTML = "<em>No To Dos right now</em>"
+        document.querySelector("#to-do").appendChild(toDoElem)
+    }
+
+
+    if (filters.showDone) {
+        if (filteredDones.length > 0) {
+            filteredDones.forEach(function (done) {
+                const doneElem = document.createElement("p")
+                doneElem.textContent = done.text
+                doneElem.classList.add("done")
+                document.querySelector("#done").appendChild(doneElem)
+            })
+        } else {
+            const doneElem = document.createElement("p")
+            doneElem.innerHTML = "<em>No Done right now</em>"
+            doneElem.classList.add("done")
+            document.querySelector("#done").appendChild(doneElem)
+        }
+
+    }
 }
 
-renderAll(toDoList, filters)
+render(toDoList, filters)
 
 const filterToDos = function (e) {
     filters.query = e.target.value
-    renderAll(toDoList, filters)
+    render(toDoList, filters)
 }
 
 document.querySelector("#btn-remove-to-do").addEventListener("click", removeAllToDos)
 document.querySelector("#btn-remove-done").addEventListener("click", removeAllDone)
 document.querySelector("#input-filter").addEventListener("input", filterToDos)
 document.querySelector("#show-done").addEventListener("change", function (e) {
-    console.log(e.target.checked)
+    filters.showDone = e.target.checked
+    render(toDoList, filters)
 })
 
 
@@ -117,6 +144,6 @@ document.querySelector("#add-to-do-form").addEventListener("submit", function (e
     if (inputVal != "") {
         addToDo(inputVal)
     }
-    renderAll(toDoList, filters)
+    render(toDoList, filters)
     document.forms["add-to-do-form"].reset()
 })

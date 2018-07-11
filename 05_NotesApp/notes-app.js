@@ -10,18 +10,18 @@ const notes = [{
 }]
 
 const filters = {
-    searchText: ""
+    searchText: ''
 }
 
 const addNote = function (e, note) {
-    const newNote = document.createElement("p")
-    newNote.textContent = "New Note Placeholder Text"
-    newNote.classList.add("note")
-    document.querySelector("#notes").appendChild(newNote)
+    const newNote = document.createElement('p')
+    newNote.textContent = 'New Note Placeholder Text'
+    newNote.classList.add('note')
+    document.querySelector('#notes').appendChild(newNote)
 }
 
 const removeAllNotes = function (e) {
-    document.querySelector("#notes").innerHTML = ""
+    document.querySelector('#notes').innerHTML = ''
 }
 
 const renderNotes = function (notes, filters) {
@@ -30,22 +30,22 @@ const renderNotes = function (notes, filters) {
         return note.title.toLowerCase().includes(filters.searchText.toLowerCase())
     })
     filteredNotes.forEach(function(note) {
-        const noteEl = document.createElement("p")
+        const noteEl = document.createElement('p')
         noteEl.textContent= note.title
-        noteEl.classList.add("note")
-        document.querySelector("#notes").appendChild(noteEl)
+        noteEl.classList.add('note')
+        document.querySelector('#notes').appendChild(noteEl)
     })
 }
 
 renderNotes(notes, filters)
 
-document.querySelector("#btn-add").addEventListener("click", addNote)
-document.querySelector("#btn-remove-all").addEventListener("click", removeAllNotes)
-document.querySelector("#input-filter").addEventListener("input", function (e) {
+document.querySelector('#btn-add').addEventListener('click', addNote)
+document.querySelector('#btn-remove-all').addEventListener('click', removeAllNotes)
+document.querySelector('#input-filter').addEventListener('input', function (e) {
     filters.searchText = e.target.value
     renderNotes(notes, filters)
 })
 
-document.querySelector("#for-fun").addEventListener("change", function (e) {
-    console.log(e.target.checked)
+document.querySelector('#filter-by').addEventListener('change', function (e) {
+    console.log(e.target.value)
 })
