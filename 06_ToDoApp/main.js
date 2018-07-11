@@ -33,7 +33,7 @@ const complete = toDoList.filter(function (toDo) {
     return toDo.isComplete
 })
 
-const summary = document.createElement("h2")
+const summary = document.createElement("h3")
 summary.textContent = `You have ${incomplete.length} things left to do`
 document.querySelector("#header").appendChild(summary)
 
@@ -114,3 +114,15 @@ document.querySelector("#btn-remove-to-do").addEventListener("click", removeAllT
 document.querySelector("#btn-remove-done").addEventListener("click", removeAllDone)
 document.querySelector("#input-filter").addEventListener("input", filterToDos)
 document.querySelector("#input-new").addEventListener("change", setNewText)
+
+document.querySelector("#add-to-do-form").addEventListener("submit", function(e) {
+    e.preventDefault()
+    document.querySelector("#input-new")
+   input = document.querySelector("#input-new")
+   if (input.value != "") {
+        e.target.text = "tempText"
+        e.target.complete = false;
+        toDoList.push(e.target)
+    input.value = ""
+    }
+})
