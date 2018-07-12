@@ -31,15 +31,23 @@ const removeAllNotes = function (e) {
 
 // Generate DOM note structure
 const generateNoteDOM = function (note) {
-    const noteEl = document.createElement('p')
+    const container = document.createElement('div')
+    const text = document.createElement('span')
+    const button = document.createElement('button')
+
+    button.textContent = 'x'
 
     if (note.title.length > 0) {
-        noteEl.textContent = note.title
+        text.textContent = note.title
     } else {
-        noteEl.textContent = 'Unnamed Note'
+        text.textContent = 'Unnamed Note'
     }
-    noteEl.classList.add('note')
-    return noteEl
+
+    container.appendChild(text)
+    container.appendChild(button)
+    container.classList.add('note')
+    
+    return container
 }
 
 // Render application notes

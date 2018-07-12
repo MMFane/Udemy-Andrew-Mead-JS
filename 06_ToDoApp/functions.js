@@ -46,17 +46,32 @@ const addToDo = function (text) {
     render(toDoList, filters)
 }
 
-const generateToDoDOM = function (text) {
-    const toDoElem = document.createElement('p')
-    toDoElem.textContent = text
-    document.querySelector('#to-do').appendChild(toDoElem)
+const generateToDoDOM = function (toDo, location) {
+    const container = document.createElement('div')
+    const checkbox = document.createElement('input')
+    const toDoText = document.createElement('span')
+    const removeBtn = document.createElement('button')
+
+    checkbox.setAttribute('type', 'checkbox')
+    toDoText.textContent = toDo.text
+    removeBtn.textContent = 'x'
+
+    container.appendChild(checkbox)
+    container.appendChild(toDoText)
+    container.appendChild(removeBtn)
+
+    if (toDo.isComplete === true) {
+        checkbox.setAttribute('checked', 'true')
+        toDoText.classList.add('done')
+    }
+
+    document.querySelector(location).appendChild(container)
 }
 
-const generateDoneDOM = function (text) {
-    const doneElem = document.createElement('p')
-    doneElem.textContent = text
-    doneElem.classList.add('done')
-    document.querySelector('#done').appendChild(doneElem)
+const generateEmptyDOM = function () {
+    const empty = document.createElement('p')
+    empty.textContent = '-----'
+    document.querySelector("#to-do").appendChild(empty)
 }
 
 const generateSummaryDOM = function (list) {
@@ -98,18 +113,18 @@ const render = function (toDoList, filters) {
 
     if (filteredToDos.length > 0) {
         filteredToDos.forEach(function (toDo) {
-            generateToDoDOM(toDo.text)
+            generateToDoDOM(toDo, '#to-do')
         })
     } else {
-        generateToDoDOM('-----')
+        generateEmptyDOM()
     }
     if (filters.showDone) {
         if (filteredDones.length > 0) {
             filteredDones.forEach(function (done) {
-                generateDoneDOM(done.text)
+                generateToDoDOM(done, '#done')
             })
         } else {
-            generateDoneDOM('-----')
+            generateEmptyDOM()
         }
     }
 }
