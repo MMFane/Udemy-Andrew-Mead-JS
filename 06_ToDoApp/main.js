@@ -9,10 +9,10 @@ getShowDone(filters)
 render(toDoList, filters)
 
 document.querySelector('#btn-remove-to-do').addEventListener('click', function () {
-    remove(false)
+    removeAll(false)
 })
 document.querySelector('#btn-remove-done').addEventListener('click', function () {
-    remove(true)
+    removeAll(true)
 })
 document.querySelector('#input-filter').addEventListener('input', setFilter)
 document.querySelector('#show-done').addEventListener('change', function (e) {

@@ -16,6 +16,7 @@ const saveNotes = function (notes) {
 
 const addNote = function (notes) {
     notes.push({
+        id: uuidv4(),
         title: '',
         body: ''
     })
@@ -29,6 +30,16 @@ const removeAllNotes = function (e) {
     saveNotes(notes)
 }
 
+const removeNote = function (id) {
+    const noteIndex = notes.findIndex(function (note) {
+        return note.id === id
+    })
+
+    if (noteIndex > -1) {
+        notes.splice(noteIndex, 1)
+    }
+}
+
 // Generate DOM note structure
 const generateNoteDOM = function (note) {
     const container = document.createElement('div')
@@ -36,6 +47,11 @@ const generateNoteDOM = function (note) {
     const button = document.createElement('button')
 
     button.textContent = 'x'
+    button.addEventListener('click', function () {
+        removeNote(note.id)
+        saveNotes(notes)
+        renderNotes(notes, filters)
+    })
 
     if (note.title.length > 0) {
         text.textContent = note.title

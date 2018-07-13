@@ -39,6 +39,7 @@ const filterList = function (list) {
 
 const addToDo = function (text) {
     toDoList.push({
+        id: uuidv4(),
         text: text,
         isComplete: false
     })
@@ -55,6 +56,11 @@ const generateToDoDOM = function (toDo, location) {
     checkbox.setAttribute('type', 'checkbox')
     toDoText.textContent = toDo.text
     removeBtn.textContent = 'x'
+    removeBtn.addEventListener('click', function () {
+        removeToDo(toDo.id)
+        saveToDoList(toDoList)
+        render(toDoList, filters)
+    })
 
     container.appendChild(checkbox)
     container.appendChild(toDoText)
@@ -80,7 +86,7 @@ const generateSummaryDOM = function (list) {
     document.querySelector('#header').appendChild(summary)
 }
 
-const remove = function (isDone) {
+const removeAll = function (isDone) {
     for (let i = toDoList.length - 1; i >= 0; i--) {
         if (toDoList[i].isComplete === isDone) {
             toDoList.splice(i, 1)
@@ -88,6 +94,16 @@ const remove = function (isDone) {
     }
     saveToDoList(toDoList)
     render(toDoList, filters)
+}
+
+const removeToDo = function (id) {
+    const index = toDoList.findIndex(function (toDo) {
+        return toDo.id === id
+    })
+
+    if (index > -1) {
+        toDoList.splice(index, 1)
+    }
 }
 
 const resetPage = function () {
