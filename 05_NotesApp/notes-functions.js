@@ -15,13 +15,14 @@ const saveNotes = function (notes) {
 }
 
 const addNote = function (notes) {
-    notes.push({
+    const newNote = {
         id: uuidv4(),
-        title: '',
+        title: 'Untitled Note',
         body: ''
-    })
+    }
+    notes.push(newNote)
     saveNotes(notes)
-    renderNotes(notes, filters)
+    location.assign(`./edit.html#${newNote.id}`)
 }
 
 const removeAllNotes = function (e) {
@@ -43,7 +44,7 @@ const removeNote = function (id) {
 // Generate DOM note structure
 const generateNoteDOM = function (note) {
     const container = document.createElement('div')
-    const text = document.createElement('span')
+    const text = document.createElement('a')
     const button = document.createElement('button')
 
     button.textContent = 'x'
@@ -53,11 +54,8 @@ const generateNoteDOM = function (note) {
         renderNotes(notes, filters)
     })
 
-    if (note.title.length > 0) {
-        text.textContent = note.title
-    } else {
-        text.textContent = 'Unnamed Note'
-    }
+    text.textContent = note.title
+    text.setAttribute('href', `./edit.html#${note.id}`)
 
     container.appendChild(text)
     container.appendChild(button)

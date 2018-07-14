@@ -54,6 +54,17 @@ const generateToDoDOM = function (toDo, location) {
     const removeBtn = document.createElement('button')
 
     checkbox.setAttribute('type', 'checkbox')
+    if (toDo.isComplete === true) {
+        checkbox.setAttribute('checked', true)
+        toDoText.classList.add('done')
+    }
+    checkbox.addEventListener('change', function () {
+        toDoText.classList.toggle('done')
+        toDo.isComplete = !toDo.isComplete
+        saveToDoList(toDoList)
+        render(toDoList, filters)
+    })
+
     toDoText.textContent = toDo.text
     removeBtn.textContent = 'x'
     removeBtn.addEventListener('click', function () {
@@ -66,10 +77,7 @@ const generateToDoDOM = function (toDo, location) {
     container.appendChild(toDoText)
     container.appendChild(removeBtn)
 
-    if (toDo.isComplete === true) {
-        checkbox.setAttribute('checked', 'true')
-        toDoText.classList.add('done')
-    }
+  
 
     document.querySelector(location).appendChild(container)
 }
