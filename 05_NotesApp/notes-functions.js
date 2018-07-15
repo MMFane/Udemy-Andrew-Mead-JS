@@ -48,6 +48,7 @@ const generateNoteDOM = function (note) {
     const button = document.createElement('button')
 
     button.textContent = 'x'
+    button.classList.add('btn-remove')
     button.addEventListener('click', function () {
         removeNote(note.id)
         saveNotes(notes)
@@ -57,8 +58,8 @@ const generateNoteDOM = function (note) {
     text.textContent = note.title
     text.setAttribute('href', `./edit.html#${note.id}`)
 
-    container.appendChild(text)
     container.appendChild(button)
+    container.appendChild(text)
     container.classList.add('note')
     
     return container

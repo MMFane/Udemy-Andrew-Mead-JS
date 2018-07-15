@@ -1,22 +1,39 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Notes App</title>
-    </head>
-    <body>
-        <h1>Notes App</h1>
-        <h2>Record your thoughts</h2>
-        <input id="input-filter" type="text" placeholder="Filter Notes">
-        <select id="filter-by">
-            <option value="byEdited">Sort by last edited</option>
-            <option value="byCreated">Sort by recently created</option>
-            <option value="byTitle">Sort by title, alphabetically</option>
-        </select>
-        <div id="notes"></div>
+
+<head>
+    <title>Notes App</title>
+    <link type="text/css" href="./main.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+</head>
+
+<body>
+    <h1>QuickNote</h1>
+    <h3>
+        <em>Record your thoughts</em>
+    </h3>
+    <div id="note-wrapper">
+        <div class="flex-wrapper">
+            <input id="input-filter" type="text" placeholder="Filter Notes">
+            <select id="filter-by">
+                <option value="byEdited">Sort by last edited</option>
+                <option value="byCreated">Sort by recently created</option>
+                <option value="byTitle">Sort by title, alphabetically</option>
+            </select>
+        </div>
+        <div class="flex-wrapper">
+            <div class="flex-buffer"></div>
+            <div id="notes"></div>
+            <div class="flex-buffer"></div>
+        </div>
+    </div>
+    <div id="buttons">
         <button id="btn-add">Add Note</button>
         <button id="btn-remove-all">Remove All</button>
-        <script src="./uuidv4.js"></script>
-        <script src="./notes-functions.js"></script>
-        <script src="./notes-app.js"></script>
-    </body>
+    </div>
+    <script src="./uuidv4.js"></script>
+    <script src="./notes-functions.js"></script>
+    <script src="./notes-app.js"></script>
+</body>
+
 </html>

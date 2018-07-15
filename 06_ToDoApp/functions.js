@@ -49,15 +49,14 @@ const addToDo = function (text) {
 
 const generateToDoDOM = function (toDo, location) {
     const container = document.createElement('div')
+    const toDoContainer = document.createElement('div')
     const checkbox = document.createElement('input')
     const toDoText = document.createElement('span')
     const removeBtn = document.createElement('button')
 
+    container.classList.add('to-do')
+
     checkbox.setAttribute('type', 'checkbox')
-    if (toDo.isComplete === true) {
-        checkbox.setAttribute('checked', true)
-        toDoText.classList.add('done')
-    }
     checkbox.addEventListener('change', function () {
         toDoText.classList.toggle('done')
         toDo.isComplete = !toDo.isComplete
@@ -65,33 +64,38 @@ const generateToDoDOM = function (toDo, location) {
         render(toDoList, filters)
     })
 
+    if (toDo.isComplete === true) {
+        checkbox.setAttribute('checked', true)
+        toDoText.classList.add('done')
+        removeBtn.classList.add('done-btn')
+    }
+
     toDoText.textContent = toDo.text
     removeBtn.textContent = 'x'
+    removeBtn.classList.add('btn-remove')
     removeBtn.addEventListener('click', function () {
         removeToDo(toDo.id)
         saveToDoList(toDoList)
         render(toDoList, filters)
     })
-
-    container.appendChild(checkbox)
-    container.appendChild(toDoText)
+    toDoContainer.appendChild(checkbox)
+    toDoContainer.appendChild(toDoText)
+    container.appendChild(toDoContainer)
     container.appendChild(removeBtn)
-
-  
 
     document.querySelector(location).appendChild(container)
 }
 
-const generateEmptyDOM = function () {
+const generateEmptyDOM = function (location) {
     const empty = document.createElement('p')
     empty.textContent = '-----'
-    document.querySelector("#to-do").appendChild(empty)
+    document.querySelector(location).appendChild(empty)
 }
 
 const generateSummaryDOM = function (list) {
-    const summary = document.querySelector('#summary')
+    const summary = document.querySelector('#summary-text')
     summary.textContent = `You have ${list.length} things left to do`
-    document.querySelector('#header').appendChild(summary)
+    document.querySelector('#summary').appendChild(summary)
 }
 
 const removeAll = function (isDone) {
@@ -117,13 +121,12 @@ const removeToDo = function (id) {
 const resetPage = function () {
     document.querySelector('#to-do').innerHTML = ''
     document.querySelector('#done').innerHTML = ''
-    document.querySelector('#summary').innerHTML = ''
+    document.querySelector('#summary-text').innerHTML = ''
 }
 
 // Render application
 const render = function (toDoList, filters) {
     resetPage()
-
     const incomplete = toDoList.filter(function (toDo) {
         return !toDo.isComplete
     })
@@ -140,7 +143,7 @@ const render = function (toDoList, filters) {
             generateToDoDOM(toDo, '#to-do')
         })
     } else {
-        generateEmptyDOM()
+        generateEmptyDOM('#to-do')
     }
     if (filters.showDone) {
         if (filteredDones.length > 0) {
@@ -148,7 +151,7 @@ const render = function (toDoList, filters) {
                 generateToDoDOM(done, '#done')
             })
         } else {
-            generateEmptyDOM()
+            generateEmptyDOM('#done')
         }
     }
 }

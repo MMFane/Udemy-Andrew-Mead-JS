@@ -1,0 +1,99 @@
+html {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(#e4e1e6,#a49ea6);
+    font-family: "Montserrat", sans-serif;
+    text-align: center;
+}
+
+body {
+    padding-top: 50px;
+}
+
+#buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#btn-add, #btn-done, #btn-remove, #btn-remove-all {
+    border-radius: 5px;
+    border: none;
+    padding: 10px;
+    margin-bottom: 10px;
+    color: white;
+    background-color:#9f86a8;
+    font-size: 1em;
+    margin-right: 10px;
+    text-decoration: none;
+}
+
+#btn-add:hover {
+    background-color:#bda4c6;
+}
+
+#btn-add:active {
+    background-color:#81688a;
+    outline: none;
+}
+
+#btn-remove-all, #btn-remove {
+    background-color: #a34c4c;
+}
+
+#btn-remove-all:hover, #btn-remove:hover {
+    background-color: #c16a6a;
+}
+
+#btn-remove-all:active, #btn-remove:active {
+    background-color: #852e2e;
+}
+
+.btn-remove {
+    border-radius: 5px;
+    border: 1px solid black;
+    background-color:#716775;
+    margin-right: 10px;
+}
+
+.flex-wrapper {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+}
+
+.flex-buffer {
+    flex: 1;
+}
+
+#notes {
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    padding: 50px;
+}
+
+#note-wrapper {
+    margin: 50px 25%;
+    padding: 50px;
+    border: 1px solid rgba(0, 0, 0, 0.1)
+}
+
+#note-input-wrapper {
+    display: flex;
+    flex-direction: column;
+    margin: 50px 15% 25px 15%;
+    text-align: left;
+}
+
+#note-title, #note-body {
+    margin-bottom: 25px;
+}
+
+.note {
+    padding: 7px 0;
+}
+
+.note a {
+    text-decoration: none;
+}

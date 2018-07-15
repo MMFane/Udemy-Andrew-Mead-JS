@@ -2,13 +2,21 @@
 <html>
 <head>
     <title>Add a Note</title>
+    <link type="text/css" href="./main.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
 </head>
 <body>
     <h2 id="page-title"></h2>
-    <input id ="note-title" placeholder="Note Title">
-    <textarea id="note-body" placeholder="Enter note text"></textarea>
-    <a href="./index.html">Done</a>
-    <button id="btn-remove">Remove Note</button>
+    <div id="note-input-wrapper">
+        <label for="note-title"><em>Note Title</em></label>
+        <input id="note-title" placeholder="Note Title">
+        <label for="note-title"><em>Text</em></label>
+        <textarea id="note-body" placeholder="Enter note text" rows="5"></textarea>
+    </div>
+    <div id="buttons">
+        <a id="btn-done" href="./index.html">Done</a>
+        <button id="btn-remove">Remove Note</button>
+    </div>
     <script src="./notes-functions.js"></script>
     <script src="./notes-edit.js"></script>
 </body>

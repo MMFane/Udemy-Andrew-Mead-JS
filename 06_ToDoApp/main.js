@@ -30,3 +30,10 @@ document.querySelector('#add-to-do-form').addEventListener('submit', function (e
     render(toDoList, filters)
     document.forms['add-to-do-form'].reset()
 })
+
+window.addEventListener('storage', function (e) {
+    if (e.key === 'toDoList') {
+        toDoList = JSON.parse(e.newValue)
+    }
+    render(toDoList, filters)
+})

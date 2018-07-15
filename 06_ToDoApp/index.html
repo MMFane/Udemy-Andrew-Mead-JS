@@ -1,30 +1,50 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>To Do App</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link type="text/css" href="./main.css" rel="stylesheet"></link>
+    <link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet">
 </head>
+
 <body>
-    <div id="header">
-        <h2>To Do</h2>
-        <h3><em id="summary"></em></h3>
+    <div id="content">
+        <div id="to-do-wrapper">
+            <div id="header">
+                <h1>To Do</h1>
+                <h3 id="summary">
+                    <em id="summary-text"></em>
+                </h3>
+            </div>
+
+            <div id="to-do-top" class="flex-wrapper">
+                <input id="input-filter" type="text" placeholder="Filter To Dos">
+                <button id="btn-remove-to-do">x</button>
+            </div>
+            <div id="to-do"></div>
+            <form id="add-to-do-form">
+                <input id="input-new" type="text" placeholder="Type New To Do" name="toDoText">
+                <button id="btn-add">Add To Do</button>
+            </form>
+        </div>
+
+        <div id="done-wrapper">
+            <!-- <h2 id="done-header">Done</h2> -->
+            <div id="done-top">
+                <label>
+                    Show Done
+                    <input id="show-done" type="checkbox">
+                </label>
+                <button id="btn-remove-done">x</button>
+            </div>
+            <div id="done"></div>
+        </div>
     </div>
-    <input id="input-filter" type="text" placeholder="Filter To Dos">
-    <div id="to-do"></div>
-    <form id="add-to-do-form">
-        <input id="input-new" type="text" placeholder="Type New To Do" name="toDoText">
-        <button id="btn-add">Add To Do</button>
-    </form>
-    <button id="btn-remove-to-do">Remove All To Do</button>
-    <h2 id="done-header">Done</h2>
-    <label for="show-done">Show Done</label>
-    <input id="show-done" type="checkbox">
-    <button id="btn-remove-done">Remove All Done</button>
-    <div id="done"></div>
     
     <script src="./uuidv4.js"></script>
     <script src="./functions.js"></script>
     <script src="./main.js"></script>
 </body>
+
 </html>
