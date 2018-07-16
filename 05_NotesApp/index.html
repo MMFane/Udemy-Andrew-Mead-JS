@@ -17,8 +17,9 @@
             <input id="input-filter" type="text" placeholder="Filter Notes">
             <select id="filter-by">
                 <option value="byEdited">Sort by last edited</option>
-                <option value="byCreated">Sort by recently created</option>
-                <option value="byTitle">Sort by title, alphabetically</option>
+                <option value="byOldest">Sort oldest to newest</option>
+                <option value="byNewest">Sort newest to oldest</option>
+                <option value="byTitle">Sort alphabetically</option>
             </select>
         </div>
         <div class="flex-wrapper">
@@ -31,7 +32,9 @@
         <button id="btn-add">Add Note</button>
         <button id="btn-remove-all">Remove All</button>
     </div>
+
     <script src="./uuidv4.js"></script>
+    <script src="./moment.min.js"></script>
     <script src="./notes-functions.js"></script>
     <script src="./notes-app.js"></script>
 </body>

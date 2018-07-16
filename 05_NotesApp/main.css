@@ -56,8 +56,14 @@ body {
     margin-right: 10px;
 }
 
+#date-text {
+    color: grey;
+    font-size: 0.75em;
+}
+
 .flex-wrapper {
     display: flex;
+    flex-wrap: wrap;
     align-content: center;
     justify-content: center;
 }

@@ -15,10 +15,13 @@ const saveNotes = function (notes) {
 }
 
 const addNote = function (notes) {
+    const timeStamp = moment().valueOf()
     const newNote = {
         id: uuidv4(),
         title: 'Untitled Note',
-        body: ''
+        body: '',
+        createdAt: timeStamp,
+        updatedAt: timeStamp
     }
     notes.push(newNote)
     saveNotes(notes)
@@ -38,6 +41,52 @@ const removeNote = function (id) {
 
     if (noteIndex > -1) {
         notes.splice(noteIndex, 1)
+    }
+}
+
+const sortNotes = function (notes, sortBy) {
+    if (sortBy === 'byEdited') {
+        return notes.sort(function (a, b) {
+            if (a.updatedAt > b.updatedAt) {
+                return -1
+            } else if (a.updatedAt < b.updatedAt) {
+                return 1
+            } else {
+                return 0
+            }
+        })
+    } else if (sortBy === 'byOldest') {
+        return notes.sort(function (a, b) {
+            if (a.createdAt > b.createdAt) {
+                return -1
+            } else if (a.createdAt < b.createdAt) {
+                return 1
+            } else {
+                return 0
+            }
+        })
+    } else if (sortBy === 'byNewest') {
+        return notes.sort(function (a, b) {
+            if (a.createdAt < b.createdAt) {
+                return -1
+            } else if (a.createdAt > b.createdAt) {
+                return 1
+            } else {
+                return 0
+            }
+        })
+    } else if (sortBy === 'byTitle') {
+        return notes.sort(function (a, b) {
+            if (a.title.toLowerCase() < b.title.toLowerCase()) {
+                return -1
+            } else if (a.title.toLowerCase() > b.title.toLowerCase()) {
+                return 1
+            } else {
+                return 0
+            }
+        })
+    } else {
+        return notes
     }
 }
 
@@ -61,12 +110,13 @@ const generateNoteDOM = function (note) {
     container.appendChild(button)
     container.appendChild(text)
     container.classList.add('note')
-    
+
     return container
 }
 
 // Render application notes
 const renderNotes = function (notes, filters) {
+    notes = sortNotes(notes, filters.sortBy)
     document.querySelector('#notes').innerHTML = ''
     const filteredNotes = notes.filter(function (note) {
         return note.title.toLowerCase().includes(filters.query.toLowerCase())
