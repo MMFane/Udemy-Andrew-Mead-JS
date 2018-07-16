@@ -6,58 +6,52 @@ const pageTitle = document.querySelector('#page-title')
 const dateText = document.querySelector('#last-edited')
 
 let notes = getSavedNotes()
-let note = notes.find(function (note) {
-    return note.id === noteId
-})
+let note = notes.find((note) => note.id === noteId)
 if (note === undefined) {
     location.assign('/index.html')
 }
 
-const updateUpdatedAt = function () {
-    dateText.textContent = `last edited ${moment(note.updatedAt).fromNow()}`
-}
+const updateUpdatedAt = () => `last edited ${moment(note.updatedAt).fromNow()}`
 
 pageTitle.textContent = `"${note.title}"`
-updateUpdatedAt()
+dateText.textContent = updateUpdatedAt()
 
 // Showing and editing note title and body on the page
 noteTitle.value = note.title
 noteBody.value = note.body
 
-noteTitle.addEventListener('input', function (e) {
+noteTitle.addEventListener('input', (e) => {
     note.title = e.target.value
     note.updatedAt = moment().valueOf()
-    updateUpdatedAt()
+    dateText.textContent = updateUpdatedAt()
     pageTitle.textContent = `"${note.title}"`
     saveNotes(notes)
 })
 
-noteBody.addEventListener('input', function (e) {
+noteBody.addEventListener('input', (e) => {
     note.body = e.target.value
     note.updatedAt = moment().valueOf()
-    updateUpdatedAt()
+    dateText.textContent = updateUpdatedAt()
     saveNotes(notes)
 })
 
-document.querySelector('#btn-remove').addEventListener('click', function () {
+document.querySelector('#btn-remove').addEventListener('click', () => {
     removeNote(note.id)
     saveNotes(notes)
     location.assign('/index.html')
 })
 
-window.addEventListener('storage', function (e) {
+window.addEventListener('storage', (e) => {
     if (e.key === 'notes') {
         notes = JSON.parse(e.newValue)
         // TO DO: break out into own function
-        note = notes.find(function (note) {
-            return note.id === noteId
-        })
+        note = notes.find((note) => note.id === noteId)
         if (note === undefined) {
             location.assign('/index.html')
         }
         noteTitle.value = note.title
         noteBody.value = note.body
         renderNotes(notes, filters)
-        updateUpdatedAt()
+        dateText.textContent = updateUpdatedAt()
     }
 })

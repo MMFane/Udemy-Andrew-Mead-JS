@@ -7,21 +7,21 @@ const filters = {
 
 renderNotes(notes, filters)
 
-document.querySelector('#btn-add').addEventListener('click', function () {
+document.querySelector('#btn-add').addEventListener('click', () => {
     addNote(notes)
 })
 document.querySelector('#btn-remove-all').addEventListener('click', removeAllNotes)
-document.querySelector('#input-filter').addEventListener('input', function (e) {
+document.querySelector('#input-filter').addEventListener('input', (e) => {
     filters.query = e.target.value
     renderNotes(notes, filters)
 })
 
-document.querySelector('#filter-by').addEventListener('change', function (e) {
+document.querySelector('#filter-by').addEventListener('change', (e) => {
     filters.sortBy = e.target.value
     renderNotes(notes, filters)
 })
 
-window.addEventListener('storage', function (e) {
+window.addEventListener('storage', (e) => {
     if (e.key === 'notes') {
         notes = JSON.parse(e.newValue)
         renderNotes(notes, filters)
